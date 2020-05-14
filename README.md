@@ -1,6 +1,6 @@
 # User Session Challenge App
 
-User Session Challenge App is a project created to manage User Session generation. Is a client side project for [User Session Challenge Api](https://gitlab.com/Ara_Manjon/user-session-challenge).
+User Session Challenge App is a project created to manage user session token generation. Is a client side project for [User Session Challenge Api](https://gitlab.com/Ara_Manjon/user-session-challenge).
 
 This project was bootstrapped with [Create React App](https://github.com/facebook/create-react-app).
 
