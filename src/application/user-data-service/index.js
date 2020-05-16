@@ -22,13 +22,12 @@ export class UserDataService {
 	}
 
 	async findUser(username, token) {
+		new Token(token);
+		new Username(username);
 		try {
-			new Token(token);
-			new Username(username);
-
 			return await this.userSessionApi.get(`${API_URL}/info/${username}/${token}`);
-		} catch ({ message }) {
-			throw Error(message);
+		} catch (error) {
+			throw Error(error);
 		}
 	}
 }

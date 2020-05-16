@@ -3,10 +3,10 @@ import React from 'react';
 import Error from "../../components/Error"
 import Input from "../../components/Input"
 
-const Boot = ({ onUsername, error, setError }) => {
+const Boot = ({ onUsername, error, onError }) => {
 
     const onInput = () => {
-        setError(null);
+        onError();
         onUsername(null);
     }
     

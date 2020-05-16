@@ -12,11 +12,20 @@ import axios from 'axios';
  * @returns user session token
  */
 export class UserSessionAPI {
+	
 	async get(url) {
-		return await axios.get(url);
+		try{
+			return await axios.get(url);
+		}catch(error){
+			throw Error(error.response.data);
+		}
 	}
 
 	async post(url, data) {
-		return axios.post(url, data);
+		try {
+			return await axios.post(url, data);
+		} catch (error) {
+			throw Error(error.response.data);
+		}
 	}
 }

@@ -1,12 +1,12 @@
 import React from 'react'
 
-const Button = ({ onToken, onUsername }) => {
+const Button = ({ onToken, username }) => {
 	return (
 		<button
 			onClick={(event) => {
 				event.preventDefault();
                 
-				onToken(onUsername);
+				onToken(username);
 			}}
 			className="button"
 			type="button"

@@ -3,10 +3,10 @@ import { UserSessionAPI } from '../../infrastructure/http/userSessionAPI';
 import axios from 'axios';
 
 jest.mock('axios');
-
 describe('user sesssion service', () => {
     let userSessionService;
     let userSessionAPI
+
 
     beforeEach(()=>{
         userSessionAPI = new UserSessionAPI();
@@ -27,14 +27,16 @@ describe('user sesssion service', () => {
     })
 
 
-    it('should throw an erroor when is created a user session with not valid username', async ()=>{
-        axios.post.mockImplementationOnce(() => Promise.reject());
+    it('should throw an error when is created a user session with not valid username', async ()=>{
 
-        await expect(userSessionService.addSession('._a')).rejects.toThrow(Error('._a is not a valid username'));
+        axios.post.mockRejectedValue('._a is not a valid username');
+
+        await expect(userSessionService.addSession('._a')).rejects.toThrow(new Error('._a is not a valid username'));
     })
 
     it('should throw an erroor when is created a user session with empty username', async ()=>{
-        axios.post.mockImplementationOnce(() => Promise.reject());
+
+        axios.post.mockRejectedValue('username cannot be empty');
 
         await expect(userSessionService.addSession('')).rejects.toThrow(Error('username cannot be empty'));
     })

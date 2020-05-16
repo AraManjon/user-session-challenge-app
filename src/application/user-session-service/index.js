@@ -17,11 +17,13 @@ export class UserSessionService {
 	}
 
 	async addSession(username) {
+		new Username(username);
+
 		try {
-			new Username(username);
 			const data = {
 				username: username
 			};
+
 			return await this.userSessionApi.post(`${API_URL}/session`, data);
 		} catch ({ message }) {
 			throw Error(message);

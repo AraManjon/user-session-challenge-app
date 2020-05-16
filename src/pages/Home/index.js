@@ -1,4 +1,4 @@
-import React, { useState } from "react"
+import React, { Component } from "react"
 import { withRouter } from "react-router-dom"
 
 import { UserSessionAPI } from '../../infrastructure/http/userSessionAPI'
@@ -9,54 +9,68 @@ import Button from "../../components/Button"
 import Boot from "../../components/Boot"
 import Session from "../../components/Session"
 
-const Home = () => {
 
-    const [username, setUsername] = useState(null);
-    const [error, setError] = useState(null);
-    const [session, setSession] = useState(null);
-    const userSessionAPI = new UserSessionAPI();
-    const userSessionService = new UserSessionService(userSessionAPI);
-    const userDataService = new UserDataService(userSessionAPI);
+class Home extends Component{
+    //State = {username, error, session}
 
-    const handleUsername = (username) => {
-        setUsername(username);
+    constructor(){
+        super();
+
+        this.state = {
+            username: localStorage.username || null, 
+            error: null,
+            session: (localStorage.username && localStorage) || null
+        };
     }
 
-    const handleResetSession= () => {
-        setUsername(null);
-        setSession(null);
+    userSessionAPI = new UserSessionAPI();
+    userSessionService = new UserSessionService(this.userSessionAPI);
+    userDataService = new UserDataService(this.userSessionAPI);
+
+    handleUsername = (username) => this.setState({username});
+    
+
+    handleResetSession = () => {
+        this.setState({username: null, session: null})
+        localStorage.clear();
     }
 
-    const getToken = async () => {
+    handleError = () => this.setState({error: null});
+    
+    getToken = async () => {
         try {
-            const response = await userSessionService.addSession(username);
-            getUserSession(response.data);
+            const response = await this.userSessionService.addSession(this.state.username);
+            this.getUserSession(response.data);
         } catch ({message}) {
-            setError(message)
+            this.setState({error: message});
         }
     }
 
-    const getUserSession = async (data) => {
+    getUserSession = async (data) => {
         try {
-            const response = await userDataService.findUser(username, data.token);
-            setSession(response.data);
+            const response = await this.userDataService.findUser(this.state.username, data.token);
+            const responseDataKeys = Object.keys(response.data);
+            responseDataKeys.forEach(key => localStorage.setItem(key, response.data[key]))
+            this.setState({session:localStorage})
         } catch ({message}) {
-            setError(message)
+            this.setState({error: message});
         }
     }
 
-    return (
-        <>
-
-        {session && 
-        <Session onSession={handleResetSession} session={session}/>}
-
-        {!session && 
-        <Boot onUsername={handleUsername} error={error} setError={setError}/>}
-
-        {<Button onToken={getToken} onUsername={username}/>}
-        </>
-    );
+    render(){
+        return (
+            <>
+    
+            {this.state.session && 
+            <Session onSession={this.handleResetSession} session={this.state.session}/>}
+    
+            {!this.state.session && 
+            <Boot onUsername={this.handleUsername} error={this.state.error} onError={this.handleError}/>}
+    
+            {<Button onToken={this.getToken} username={this.state.username}/>}
+            </>
+        );
+    }
 };
 
 export default withRouter(Home)
