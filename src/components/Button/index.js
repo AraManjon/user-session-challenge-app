@@ -1,12 +1,13 @@
 import React from 'react'
+import PropTypes from 'prop-types';
 
-const Button = ({ onToken, username }) => {
+const Button = ({ getToken, username }) => {
 	return (
 		<button
 			onClick={(event) => {
 				event.preventDefault();
                 
-				onToken(username);
+				getToken(username);
 			}}
 			className="button"
 			type="button"
@@ -15,4 +16,9 @@ const Button = ({ onToken, username }) => {
 		</button>
 	);
 };
+
+Button.prototype = {
+	getToken: PropTypes.func,
+	username : PropTypes.string
+}
 export default Button;

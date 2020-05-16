@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Error = ({error, onInput}) => {
 
@@ -12,7 +13,11 @@ const Error = ({error, onInput}) => {
         }}>Click here to try again <span role="img" aria-label="strong">💪</span></button>
     </>
     );
+}
 
+Error.prototype = {
+    error: PropTypes.string,
+    onInput : PropTypes.func
 }
 
 export default Error;

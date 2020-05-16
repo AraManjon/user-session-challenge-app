@@ -1,4 +1,5 @@
 import React from 'react';
+import PropTypes from 'prop-types';
 
 const Input = ({onUsername}) => {
 
@@ -12,5 +13,7 @@ const Input = ({onUsername}) => {
     );
 
 }
-
+Input.prototype = {
+    onUsername: PropTypes.func
+}
 export default Input;

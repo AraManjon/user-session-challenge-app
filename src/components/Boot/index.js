@@ -1,5 +1,5 @@
 import React from 'react';
-
+import PropTypes from 'prop-types';
 import Error from "../../components/Error"
 import Input from "../../components/Input"
 
@@ -19,5 +19,11 @@ const Boot = ({ onUsername, error, onError }) => {
 	</div>
 	);
 };
+
+Boot.propTypes = {
+    onUsername: PropTypes.func,
+    error: PropTypes.string,
+    onError: PropTypes.func 
+}
 
 export default Boot;

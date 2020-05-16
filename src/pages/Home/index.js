@@ -11,7 +11,6 @@ import Session from "../../components/Session"
 
 
 class Home extends Component{
-    //State = {username, error, session}
 
     constructor(){
         super();
@@ -35,14 +34,14 @@ class Home extends Component{
         localStorage.clear();
     }
 
-    handleError = () => this.setState({error: null});
+    handleError = (message) => this.setState({error: message});
     
     getToken = async () => {
         try {
             const response = await this.userSessionService.addSession(this.state.username);
             this.getUserSession(response.data);
         } catch ({message}) {
-            this.setState({error: message});
+            this.handleError(message);
         }
     }
 
@@ -53,7 +52,8 @@ class Home extends Component{
             responseDataKeys.forEach(key => localStorage.setItem(key, response.data[key]))
             this.setState({session:localStorage})
         } catch ({message}) {
-            this.setState({error: message});
+            this.handleError(message);
+
         }
     }
 
@@ -62,15 +62,16 @@ class Home extends Component{
             <>
     
             {this.state.session && 
-            <Session onSession={this.handleResetSession} session={this.state.session}/>}
+            <Session onResetSession={this.handleResetSession} session={this.state.session}/>}
     
             {!this.state.session && 
             <Boot onUsername={this.handleUsername} error={this.state.error} onError={this.handleError}/>}
     
-            {<Button onToken={this.getToken} username={this.state.username}/>}
+            {<Button getToken={this.getToken} username={this.state.username}/>}
             </>
         );
     }
 };
 
 export default withRouter(Home)
+
