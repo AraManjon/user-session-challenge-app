@@ -1,0 +1,37 @@
+// Jest Snapshot v1, https://goo.gl/fbAQLP
+
+exports[`message show a message with session information when session exist 1`] = `
+<div
+  className="writer"
+>
+  <p
+    className="parraf"
+  >
+     Hello 
+    myName
+     
+    <span
+      aria-label="hello"
+      role="img"
+    >
+      👋
+    </span>
+     
+  </p>
+  <p
+    className="parraf"
+  >
+    This is your session key 
+  </p>
+  <p
+    className="parraf__text-red"
+  >
+    token
+  </p>
+  <p
+    className="parraf"
+  >
+    16-05-2020 T21:18:36
+  </p>
+</div>
+`;
