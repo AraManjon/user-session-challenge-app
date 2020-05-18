@@ -1,5 +1,4 @@
 import React, { Component } from "react"
-import { withRouter } from "react-router-dom"
 
 import { UserSessionAPI } from '../../infrastructure/http/userSessionAPI'
 import { UserSessionService } from '../../application/user-session-service'
@@ -60,18 +59,17 @@ class Home extends Component{
     render(){
         return (
             <>
-    
-            {this.state.session && 
-            <Session onResetSession={this.handleResetSession} session={this.state.session}/>}
-    
-            {!this.state.session && 
-            <Boot onUsername={this.handleUsername} error={this.state.error} onError={this.handleError}/>}
-    
-            {<Button getToken={this.getToken} username={this.state.username}/>}
+                {this.state.session && 
+                <Session onResetSession={this.handleResetSession} session={this.state.session}/>}
+        
+                {!this.state.session && 
+                <Boot onUsername={this.handleUsername} error={this.state.error} onError={this.handleError}/>}
+        
+                {<Button getToken={this.getToken} username={this.state.username}/>}
             </>
         );
     }
 };
 
-export default withRouter(Home)
+export default Home
 
