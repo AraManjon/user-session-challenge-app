@@ -6,7 +6,7 @@ This project was bootstrapped with [Create React App](https://github.com/faceboo
 
 ### Installation
 
-> git clone git@gitlab.com:Ara_Manjon/user-session-challenge-app.git
+> git clone git@github.com:AraManjon/user-session-challenge-app.git
 >
 > In the project directory, you can run:
 >
